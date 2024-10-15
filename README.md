@@ -3,8 +3,10 @@
 
 - HW1: created git repo and modified read me!
 - HW2: created flowchart for standard dev calculator
-  
-'''mermaid
+
+
+
+```mermaid
   flowchart TD
     start((Start Main))
     main[compute sample standard deviation]
@@ -43,4 +45,4 @@
 
     start-->main2[Compute Population Standard Deviation]
     main2-->popSD[Compute Standard Deviation, pop=true]
-'''
+```
