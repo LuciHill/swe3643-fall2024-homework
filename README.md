@@ -8,41 +8,34 @@
 
 ```mermaid
   flowchart TD
-    start((Start Main))
-    main[compute sample standard deviation]
-    listEmpty{if List Empty}  
-    lessThanOne{if < 1}
+    startSam((Start Sample Standard Dev))
+    startPop((Start Population Standard Dev))
+    main1[compute sample standard deviation]
+    main2[compute population standard deviation]
+    listEmptyMean{if List Empty}  
     sampleSD[compute standard deviation, pop = false]
-    RaiseErr[Raise Error]
-    computeMean[Compute Mean]
+    meanErr[Raise Error]
+    computeMean[Compute Mean of Values Passed]
     computeVariance[Compute Variance]
     computeSqDiff[Compute Square Difference]
     
-    start-->main-->sampleSD-->listEmpty
-    listEmpty-->|yes|RaiseErr
-    listEmpty-->|no| computeMean
+    startSam-->main1-->sampleSD-->computeMean
+    startPop-->main2-->popSD[compute standard deviation, pop = true] --> computeMean
+    
+    computeMean-->listEmptyMean{is list of values empty?}-->|no|calcMean[Mean is caclulated and stored]
+    listEmptyMean-->|yes|meanErr
 
-    computeMean-->listEmptyMean{if List Empty}
-    listEmptyMean-->|yes|RaiseErrMean[Raise Error]
-    listEmptyMean-->|no|meanCalc[Calculate and return mean]
+    calcMean-->computeSqDiff-->listEmptyDiff{Is list of values empty?}
+    listEmptyDiff-->|yes|sqDiffErr[Raise Error]
+    listEmptyDiff-->|no|calcSqDiff[Square Difference is calculated and stored]
+    
+    calcSqDiff-->computeVariance-->isPop{Evaluate Population}
+    isPop-->|no|listSize
+    isPop-->|yes|subtract[numVals -=1]-->listSize
+    listSize{Is list of values greater than 1?}
+    listSize-->|no|varErr[Raise Error]
+    listSize-->|yes|calcVar[Variance is calculated and stored]
 
-    meanCalc---computeSqDiff[Compute Square Differences]
-    computeSqDiff-->listEmptySqD{if List Empty}
-    listEmptySqD-->|yes|RaiseErrSqD[RaiseError]
-    listEmptySqD-->|no|calcSqD[Calculate and return Square Difference]
-
-    calcSqD--> computeVariance[Compute Variance]
-    computeVariance-->ifPop{if not isPop}
-    ifPop-->|yes|minus1[numVals minus 1]
-    ifPop-->|no|lessThanOne
-    minus1-->lessThanOne{if numVals< 1}
-    lessThanOne-->|yes|RaiseErrVar[Raise Error]
-    lessThanOne-->|no|calcVar[Calculate and return Variance]
-
-    calcVar-->calcSD[Calculate and return Standard Deviation]
-    calcSD-->|result|sampleSD
-    calcSD-->|result|popSD
-
-    start-->main2[Compute Population Standard Deviation]
-    main2-->popSD[Compute Standard Deviation, pop=true]
+    calcVar-->calcStDv[Calculate and return Standard Deviation]
+    
 ```
