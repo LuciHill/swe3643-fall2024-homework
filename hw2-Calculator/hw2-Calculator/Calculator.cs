@@ -59,8 +59,8 @@ namespace hw2_Calculator
         {
             return ComputeStDev(values, true);
         }
-
-        public static void Main(string[] args)
+        
+        public static void Main(String[] args)
         {
             var calc = new StdDevCalculator();
             int[] sampleValuesList = [9, 6, 8, 5, 7];
@@ -73,3 +73,4 @@ namespace hw2_Calculator
         }
     }
 }
+
