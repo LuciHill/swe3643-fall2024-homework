@@ -4,10 +4,9 @@ namespace StdDevCalcTests
     public class NullListTests
     {
         TestDelegate MeanTest(int[] numbers)
-        {
+        { 
             StdDevCalculator calc = new StdDevCalculator();
             void TestDelegate() => calc.ComputeMean(numbers);
-
             return TestDelegate;
         }
         
